@@ -1,0 +1,54 @@
+<div class="business-card-list-container">
+    <h2>Business Cards</h2>
+  
+    <!-- Filter Form -->
+    <form [formGroup]="filterForm" (ngSubmit)="applyFilters()">
+      <div class="filter-container">
+        <input type="text" formControlName="name" placeholder="Filter by Name" />
+        <input type="date" formControlName="dob" placeholder="Filter by DOB" />
+        <input type="email" formControlName="email" placeholder="Filter by Email" />
+        <input type="text" formControlName="phone" placeholder="Filter by Phone" />
+        <select formControlName="gender">
+          <option value="">All Genders</option>
+          <option value="male">Male</option>
+          <option value="female">Female</option>
+        </select>
+        <button type="submit">Apply Filters</button>
+      </div>
+    </form>
+  
+    <!-- List of Business Cards -->
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>DOB</th>
+          <th>Email</th>
+          <th>Phone</th>
+          <th>Gender</th>
+          <th>Address</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let card of filteredCards">
+          <td>{{ card.name }}</td>
+          <td>{{ card.dob }}</td>
+          <td>{{ card.email }}</td>
+          <td>{{ card.phone }}</td>
+          <td>{{ card.gender }}</td>
+          <td>{{ card.address }}</td>
+          <td>
+            <button (click)="deleteCard(card.id)">Delete</button>
+            <button (click)="exportCard(card.id, 'csv')">Export CSV</button>
+            <button (click)="exportCard(card.id, 'xml')">Export XML</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  
+    <div *ngIf="filteredCards.length === 0">
+      <p>No business cards found.</p>
+    </div>
+  </div>
+  
